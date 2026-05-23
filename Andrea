@@ -1,0 +1,118 @@
+html
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>♰ Shadows of Us ♰</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Playfair+Display:wght@400;700&display=swap');
+    
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f000f, #2a0000, #1a001a);
+      color: #ffcccc;
+      font-family: 'Playfair Display', serif;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.85) 80%);
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 560px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(15, 0, 10, 0.9);
+      border: 2px solid #660022;
+      border-radius: 15px;
+      box-shadow: 0 0 40px rgba(255, 50, 100, 0.3);
+    }
+
+    h1 {
+      font-family: 'Cinzel Decorative', cursive;
+      color: #ff3366;
+      text-shadow: 0 0 20px #ff0000;
+      margin: 0 0 25px 0;
+      font-size: 2.8em;
+    }
+
+    #question { font-size: 1.45em; min-height: 90px; margin: 25px 0; }
+    
+    button {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin: 12px 0;
+      background: #220011;
+      color: #ff99aa;
+      border: 1px solid #aa2244;
+      border-radius: 8px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: all 0.4s;
+    }
+    button:hover {
+      background: #ff3366;
+      color: white;
+      transform: translateX(10px);
+    }
+
+    #result { display: none; }
+    .message {
+      text-align: left;
+      line-height: 1.75;
+      font-size: 1.05em;
+      background: rgba(30, 0, 15, 0.95);
+      padding: 30px;
+      border: 1px solid #990033;
+      border-radius: 12px;
+      margin: 25px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>♰ SHADOWS OF US ♰</h1>
+    <h2 id="question">L'oscurità ti chiama...</h2>
+    <div id="options"></div>
+    <p id="score">Legame Oscuro: 0/5</p>
+
+    <div id="result">
+      <h2>✦ Il Patto è Sigillato per Sempre ✦</h2>
+      <p id="final-score" style="font-size: 1.3em;"></p>
+      <div class="message" id="custom-message"></div>
+      <button onclick="restart()">Torna nelle Tenebre</button>
+    </div>
+  </div>
+
+<script>
+// ===================== TESTO COMPLETO =====================
+const customFinalText = `
+Auguri, amore. Volevo scriverti un pensiero, apprezzalo perché sono disgrafico e quindi, boh, apprezzalo perché non ho usato chat.
+
+Basta pensare solo agli altri. Seriamente, mi ricordo ancora la prima volta che ci siamo visti: avevi perso il passaporto in aeroporto e pensavi a vedere quello degli altri quando avevi perso il tuo, ma per fortuna alla fine ce l'aveva Norma. Non c'entra nulla il passaporto, il fatto che volevo chiarirti è che pensi troppo agli altri e pensi sempre di essere un peso o di non essere mai abbastanza, ma non è così.
+
+Ogni volta che stai male pensi sempre agli altri, che non dovresti dirlo ad altre persone perché, secondo te, le faresti solo sentire male o metteresti in difficoltà altre persone, ma non è così, soprattutto per me.
+
+Dal momento che ti ho incontrato, sei stata la persona più importante nella mia vita, anche se non ne ero ancora a conoscenza. Mi ricordo tutto di te: il tuo odore, in quel momento come eri vestita, tutto. Per me hai avuto un impatto davvero bellissimo nella mia vita e le parole non potrebbero nemmeno descriverlo accuratamente. 
+
+So che probabilmente penserai solo a smentirmi in questo o in quello che dirò, lo so perché ti conosco troppo bene, ma io ti sto dicendo la verità e se non ci credi non ti fidi del sottoscritto, eh.
+
+Ogni tuo sorriso, ogni volta che parlo con te, mi fa sempre sentire meglio. Non credere che lo dico tanto per dire, perché è tutto vero, che ci credi o no, io ti amo da morire.
+
+Ti prego, non farti carico troppo da sola, perché ti credo se alla fine vuoi scomparire del tutto da tutti perché pensi che saresti solo un peso per gli altri, ma non è vero. Tutti ti amiamo, soprattutto io, io di più perché sono potente. 
+
+Se vuoi scappare ovunque tu voglia andare, io voglio rimanere con te, qualsiasi sia il luogo, anche senza meta, mi basta che sto con te, perché per me sei la mia casa, solo a vederti sorridere mi fa stare a casa.
+
+Fidati che sto meglio con te che con chiunque altro al mondo, perché tu sei l'unica che mi ha mai accettato per come sono. Ti ho detto solo a te lati che altre persone non conosceranno mai e tu non devi nascondermi i tuoi solo per paura di non essere abbastanza o paura di mettermi peso, perché non è così. 
+
+Pure se fosse, mi terrei tutto il peso dei tuoi problemi solo per te, anche se non me lo crei mai. E poi l'hai visto stesso tu quella notte in cui tremavo per paura di perderti, quindi evita di sentirti che non sei abbasta 
